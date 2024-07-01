@@ -28,3 +28,9 @@ resource "google_service_account" "cloud_run_invoker" {
 
 #bind it to invoker role
 
+resource "google_project_iam_binding" "project" {
+  project = var.project_id  
+  role    = "roles/run.invoker"
+  members = [serviceAccount{google_service_account.cloud_run_invoker.email}]
+}
+
